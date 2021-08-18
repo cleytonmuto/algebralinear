@@ -6,6 +6,14 @@ public class Utils {
         
     }
     
+    public double[ ] int2dbl( int[ ] array ) {
+    	double[ ] dblArray = new double[ array.length ];
+    	for ( int i = 0; i < array.length; i++ ) {
+    		dblArray[ i ] = array[ i ];
+    	}
+    	return dblArray;
+    }
+    
     public double[ ][ ] int2dbl( int[ ][ ] matrix ) {
         double[ ][ ] dblMatrix = new double[ matrix.length ][ matrix.length ];
         for ( int i = 0; i < matrix.length; i++ ) {
@@ -44,7 +52,7 @@ public class Utils {
         return ( int ) det( int2dbl( matrix ) );
     }
     
-    private double[ ][ ] subMatrix( double[ ][ ] matrix, int row, int column ) {
+    public double[ ][ ] subMatrix( double[ ][ ] matrix, int row, int column ) {
         double[ ][ ] sub = new double[ matrix.length - 1 ][ matrix.length - 1 ];
         int subRow = 0;
         for ( int i = 0; i < matrix.length; i++ ) {
@@ -62,11 +70,11 @@ public class Utils {
         return sub;
     }
     
-    private int[ ][ ] subMatrix( int[ ][ ] matrix, int row, int column ) {
+    public int[ ][ ] subMatrix( int[ ][ ] matrix, int row, int column ) {
         return dbl2int( subMatrix( int2dbl( matrix ), row, column ) );
     }
     
-    private double[ ][ ] adjunta( double[ ][ ] matrix ) {
+    public double[ ][ ] adjunta( double[ ][ ] matrix ) {
         double[ ][ ] adj = new double[ matrix.length ][ matrix.length ];
         for ( int i = 0; i < matrix.length; i++ ) {
             for ( int j = 0; j < matrix.length; j++ ) {
@@ -76,16 +84,15 @@ public class Utils {
         return adj;
     }
     
-    private int[ ][ ] adjunta( int[ ][ ] matrix ) {
+    public int[ ][ ] adjunta( int[ ][ ] matrix ) {
         return dbl2int( adjunta( int2dbl( matrix ) ) );
     }
     
-    private double[ ][ ] inverse( double[ ][ ] matrix ) {
+    public double[ ][ ] inverse( double[ ][ ] matrix ) {
         double d = det( matrix ); 
         if ( d == 0 ) {
             System.err.println( "ERROR: Matrix not inversible. Null determinant.");
             return null;
-            
         }
         double[ ][ ] transAdj = transpose( adjunta( matrix ) );
         double[ ][ ] inv = new double[ matrix.length ][ matrix.length ];
@@ -97,7 +104,7 @@ public class Utils {
         return inv;
     }
     
-    private int[ ][ ] inverse( int[ ][ ] matrix ) {
+    public int[ ][ ] inverse( int[ ][ ] matrix ) {
         return dbl2int( inverse( int2dbl( matrix ) ) );
     }
     
@@ -166,7 +173,20 @@ public class Utils {
         print( int2dbl( matrix ) );
     }
     
-    private boolean isInteger( double value ) {
+    public void print( int[ ] array ) {
+    	print( int2dbl( array ) );
+    }
+    public void print( double[ ] array ) {
+    	for ( int i = 0; i < array.length; i++ ) {
+    		if ( i > 0 ) {
+    			System.out.print( " " );
+    		}
+    		System.out.print( array[ i ] );
+    	}
+    	System.out.println( );
+    }
+    
+    public boolean isInteger( double value ) {
         return Math.floor( value ) == Math.ceil( value );
     }
     
@@ -182,6 +202,22 @@ public class Utils {
     
     public int[ ][ ] transpose( int[ ][ ] matrix ) {
         return dbl2int( transpose( int2dbl( matrix ) ) );
+    }
+    
+    public double[ ] multiply( double[ ][ ] matrix, double[ ] array ) {
+    	double[ ] resultado = new double[ array.length ];
+    	for ( int i = 0; i < array.length; i++ ) {
+    		double sum = 0.0;
+    		for ( int j = 0; j < array.length; j++ ) {
+    			sum = sum + matrix[ i ][ j ] * array[ j ];
+    		}
+    		double tolerancia = 0.000001;
+    		if ( Math.abs( sum - Math.round(sum) ) < tolerancia ) {
+    			sum = Math.round( sum );
+    		}
+    		resultado[ i ] = sum;
+    	}
+    	return resultado;
     }
     
     public static void main( String[ ] args ) {
