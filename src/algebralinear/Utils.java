@@ -28,7 +28,7 @@ public class Utils {
         int[ ][ ] intMatrix = new int[ matrix.length ][ matrix.length ];
         for ( int i = 0; i < matrix.length; i++ ) {
             for ( int j = 0; j < matrix.length; j++ ) {
-                intMatrix[ i ][ j ] = ( int ) matrix[ i ][ j ];
+                intMatrix[ i ][ j ] = ( int ) Math.round( matrix[ i ][ j ] );
             }
         };
         return intMatrix;
@@ -130,6 +130,9 @@ public class Utils {
         print( transpose( matriz ) );
         System.out.println( "Inversa" );
         print( inverse( matriz ) );
+        int[ ][ ] a = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+        print( multiply( a, a ) ); 
+        
     }
     
     public void print( double[ ][ ] matrix ) {
@@ -218,6 +221,27 @@ public class Utils {
     		resultado[ i ] = sum;
     	}
     	return resultado;
+    }
+    
+    public int[ ][ ] multiply( int[ ][ ] a, int[ ][ ] b ) {
+    	return dbl2int( multiply( int2dbl( a ), int2dbl( b ) ) );
+    }
+    
+    public double[ ][ ] multiply( double[ ][ ] a, double[ ][ ] b ) {
+    	double[ ][ ] p = new double[ a.length ][ b[ 0 ].length ];
+    	for ( int i = 0; i < p.length; i++ ) {
+    		for ( int j = 0; j < p[ 0 ].length; j++ ) {
+    			p[ i ][ j ] = 0.0;
+    		}
+    	}
+    	for ( int ai = 0; ai < a.length; ai++ ) {
+    		for ( int bj = 0; bj < b[ 0 ].length; bj++ ) {
+    			for ( int aj = 0; aj < a[ 0 ].length; aj++ ) {
+    				p[ ai ][ bj ] += a[ ai ][ aj ] * b[ aj ][ bj ];  
+    			}
+    		}
+    	}
+    	return p;
     }
     
     public static void main( String[ ] args ) {
