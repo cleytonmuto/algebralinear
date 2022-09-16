@@ -244,6 +244,33 @@ public class Utils {
     	return p;
     }
     
+    public String toArrayFormat( double[ ][ ] matriz ) {
+		String result = "{";
+		for ( int i = 0; i < matriz.length; i++ ) {
+			if ( i > 0 ) {
+				result += ",";
+			}
+			result += "{";
+			for ( int j = 0; j < matriz.length; j++ ) {
+				if ( j > 0 ) {
+					result += ",";
+				}
+				result += String.valueOf(matriz[ i ][ j ]);
+			}
+			result += "}";
+		}
+		result += "}";
+		return result;
+	}
+    
+    public String toArrayFormat( int[ ][ ] matriz ) {
+    	return toArrayFormat(int2dbl(matriz));
+	}
+    
+    public int mdc(int a, int b) {
+		return b == 0 ? a : mdc( b, a % b );
+	}
+    
     public static void main( String[ ] args ) {
         Utils obj = new Utils( );
         obj.run( );
