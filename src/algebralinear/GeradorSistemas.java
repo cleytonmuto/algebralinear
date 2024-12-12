@@ -13,7 +13,7 @@ public class GeradorSistemas {
 	}
 	
 	private void run( ) {
-		int repetitions = 60, dimension = 5;
+		int repetitions = 60, dimension = 3;
 		FileUtils.load("resources/head.tex", content);
 		content.add("\\begin{multicols*}{2}");
 		for ( int k = 0; k < repetitions; k++ ) {
