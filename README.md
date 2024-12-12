@@ -5,5 +5,3 @@
 * LUDecomposition: implementação do método de decomposição LU
 * Solver: resolução de sistema linear através do produto da matriz inversa
 * Utils: classe utilitária para calcular matrizes inversas, determinante, entre outros
-
-
